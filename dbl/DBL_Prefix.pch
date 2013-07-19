@@ -1,0 +1,73 @@
+//
+// Prefix header for all source files of the 'DBL' target in the 'DBL' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+    #import <UIKit/UIKit.h>
+#endif
+
+
+////////////////
+// CONSTANTS
+
+//PRODUCTION WEB SERVICES URL
+//#define TICKETS_SERVICE_DOMAIN @"ipad.luckstone.com"
+//#define TICKETS_SERVICE_URL @"http://ipad.luckstone.com:5885/Tickets.svc"
+
+//DEVELOPMENT WEB SERVICES URL
+#define TICKETS_SERVICE_DOMAIN @"delivery.luckstone.com"
+//#define TICKETS_SERVICE_URL @"http://ipad.luckstone.com:5885/20/Tickets.svc"
+#define TICKETS_SERVICE_URL @"http://ipad.luckstone.com:5885/20Test/Tickets.svc"
+
+
+//DATE FORMAT TO USE WHEN DECODING AND ENCODING DATES FROM AND FOR THE WEB SERVICE
+#define SERVICE_DATE_FORMAT @"MM/dd/yyyy hh:mm:ss a"
+
+#define SERVICE_LOGGING YES
+
+///////////////
+// MACROS
+#define APP_DELEGATE ((DBLAppDelegate*)[[UIApplication sharedApplication] delegate])
+
+#define SPEEDLIMIT_MAX 5000
+#define VC_AVAILABLE 201
+#define VC_STATUS 202
+
+//Server failures
+#define SERVER_RESPONSE_FAILURE_VALUE @"failure"
+
+#define FAILURE ALERT_TITLE_AVAILABLE @"Could not send availability"
+#define FAILURE_ALERT_MESSAGE_AVAILABLE @"There was an error sending your availability. Please try again."
+
+#define FAILURE_ALERT_TITLE_REPLY @"Could not send reply"
+#define FAILURE_ALERT_MESSAGE_REPLY @"There was an error sending your reply. Please try again."
+
+#define FAILURE_ALERT_TITLE_SCHEDULE @"Could not retrieve schedules"
+#define FAILURE_ALERT_MESSAGE_SCHEDULE @"There was an error retrieving your schedules. Please try again."
+
+#define FAILURE_ALERT_TITLE_STATUS @"Could not send status"
+#define FAILURE_ALERT_MESSAGE_STATUS @"There was an error sending your status. Please try again."
+
+#define FAILURE_ALERT_TITLE_TICKETS @"Could not retrieve ticket(s)"
+#define FAILURE_ALERT_MESSAGE_TICKETS @"There was an error retrieving your ticket(s). Please try again."
+
+//NSUserDefault keys
+#define DEFAULTS_hasLaunchedOnce @"launchStatus"
+#define DEFAULTS_deviceID @"deviceid_preference"
+#define DEFAULTS_isAvailable @"Available"
+#define DEFAULTS_switchStatus @"Status"
+#define DEFAULTS_statusLabel @"StatusLabel"
+#define DEFAULTS_speedLimit @"speedLimit"
+
+//Notifications
+#define NOTIFICATION_reloadMessages @"reload_messages"
+#define NOTIFICATION_reloadSchedule @"reload_schedule_data"
+#define NOTIFICATION_reloadServerInfo @"reload_server_info"
+#define NOTIFICATION_reloadTickets @"reload_tickets"
+#define NOTIFICATION_updateTicket @"update_ticket"
+
+#define NOTIFICATION_messageDismissed @"DBL_message_dismissed"
+#define NOTIFICATION_locationServicesOff @"DBL_location_off"
+#define NOTIFICATION_locationChanged @"DBL_location_changed"
+#define NOTIFICATION_statusChange @"DBL_status_changed"
