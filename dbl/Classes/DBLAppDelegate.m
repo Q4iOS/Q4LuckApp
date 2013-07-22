@@ -679,9 +679,9 @@
 - (NSString *)UDID
 {
   
-  //return [[UIDevice currentDevice] uniqueIdentifier];
+  return [[UIDevice currentDevice] uniqueIdentifier];
   //return @"7EB2BC01-DAB0-5873-8ED0-5D819FE754E3";
-  return @"f620011fdbec9299d2c06c77f4bffca6280e1779";//PraviniPad
+  //return @"f620011fdbec9299d2c06c77f4bffca6280e1779";//PraviniPad
 }
 
 -(NSNumber *)speedLimit {
