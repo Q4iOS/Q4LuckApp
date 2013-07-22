@@ -18,6 +18,8 @@
 @property (nonatomic, retain) NSString *ticketNumber;
 @property (nonatomic, retain) NSDate *timestamp;
 @property (nonatomic, retain) NSString *truckNumber;
+@property (nonatomic, retain) NSNumber * id;
+@property (nonatomic, retain) NSNumber * index;
 
 - (BOOL)isEqualToSignature:(DBLSignatureLocal*)object;
 

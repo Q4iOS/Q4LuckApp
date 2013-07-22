@@ -14,6 +14,12 @@
 #import "DBLTicket.h"
 #import "DBLSignatureManager.h"
 
+
+#define EMAIL_WINDOW_SIZE CGSizeMake(350, 110)
+#define ALERT_TICKET_SIGNATURE_SELECTION 1010
+
+
+
 @interface DBLTicketViewController ()
 
 - (void)loadTicket;
@@ -115,7 +121,10 @@
 @synthesize projectID, purchaseOrder, salesTax, shortTonsLoadsToday, shortTonsQtyDelivered, shortTonsQtyDeliveryToday, shortTonsQtyOrdered, specialInstructions;
 @synthesize stonePrice, stoneRate, tareWt, ticketDate, ticketNumber, ticketTime, total, truckNumber, warning1, warning2, weightMaster;
 
-@synthesize signatureImageView;
+@synthesize viewSignature,enterNotesBtn,txtNotes;
+@synthesize sigindex;
+@synthesize sig1View,sig2View,sig3View,sig4View;
+
 
 @synthesize deliverPopover, emailPopover, popControl;
 
@@ -136,9 +145,34 @@
   [self.goToMapButton setTitle:@"Go To Map"];
   [self.signatureButton setTitle:@"Get Signature"];
   [self.sendAsEmail setTitle:@"Email Ticket"];
+   /*Qfor - Babu - July 13, 2013 - NotesView and Signature View  Screen*/
+  [self.viewSignature setTitle:@"View Signature"];
   
-  NSArray *rightBarButtons = [[NSArray alloc]initWithObjects:self.deliverButton, self.goToMapButton, self.signatureButton, self.sendAsEmail, nil];
+  //View Signature Imageview Delation
+  viewController = [[UIViewController alloc] init];
+  sign_View= [[UIView alloc] init];
+  
+  sig1View = [[UIImageView alloc] init];
+  sig2View = [[UIImageView alloc] init];
+  sig3View = [[UIImageView alloc] init];
+  sig4View = [[UIImageView alloc] init];
+  
+  //change the order of button as Email Ticket,Get Signature,View Signature,Go To Map,Deliver
+  NSArray *rightBarButtons = [[NSArray alloc]initWithObjects:self.deliverButton,self.goToMapButton, self.viewSignature, self.signatureButton, self.sendAsEmail, nil];
+  
   [self.navigationItem setRightBarButtonItems:rightBarButtons];
+  
+  notesArray = [[NSArray alloc]initWithArray:[self getNotesFromCoredata]];
+  NSLog(@"notes Array %@",notesArray);
+  
+  vcResponse = [[LQResponseViewController alloc]initWithPopoverSize:DEFAULT_POPOVER_SIZE typeArray:notesArray typeTitle:@"Select Response" andDoneTitle:@"Send"];
+  [vcResponse setDelegate:self];
+  
+  vcResponseList = [[LQResponseListViewController alloc]initWithResponses:notesArray];
+  [vcResponseList setDelegate:self];
+  NSLog(@"value of array %@",notesArray);
+  self.sigindex = -1;
+  /*Notes View Delation Ending*/
   
   //Setup the view controller for our popover
   emailPopover = [[DBLEmailPopoverViewController alloc]init];
@@ -155,10 +189,60 @@
     [self setManagedObjectContext:[APP_DELEGATE managedObjectContext]]; 
   }
   
+  myPopControl = [[WEPopoverController alloc]initWithContentViewController:emailPopover];
+  [myPopControl setPopoverContentSize:EMAIL_WINDOW_SIZE];
+  
   [self loadTicket];
   
   self.email = [[NSString alloc]init];
 }
+/*Quad - Babu - July-12-2013*/
+//Signature POPOver View Adding Screen
+- (IBAction)viewAsSignatureClick:(id)sender
+{
+  
+  sign_View.frame = CGRectMake(14, 100, 740, 200);
+  sign_View.backgroundColor = [UIColor whiteColor];
+  
+  [sig1View setFrame:CGRectMake(10, 55, 170, 130)];
+  [sign_View addSubview:sig1View];
+  
+  [sig2View setFrame:CGRectMake(190, 55, 170, 130)];
+  [sign_View addSubview:sig2View];
+  
+  [sig3View setFrame:CGRectMake(375, 55, 170, 130)];
+  [sign_View addSubview:sig3View];
+  
+  [sig4View setFrame:CGRectMake(555, 55, 170, 130)];
+  [sign_View addSubview:sig4View];
+  
+  UIToolbar* toolbar = [[UIToolbar alloc] initWithFrame: CGRectMake(0.0, 0.0, 740, 44.0)];
+  
+  UIBarButtonItem* space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemFlexibleSpace
+                                                                         target: nil
+                                                                         action: nil];
+  UIBarButtonItem* doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemDone
+                                                                              target: self
+                                                                              action: @selector(dismissPopoverView)];
+  NSMutableArray* toolbarItems = [NSMutableArray array];
+  [toolbarItems addObject:space];
+  [toolbarItems addObject:doneButton];
+  toolbar.items = toolbarItems;
+  [sign_View addSubview:toolbar];
+  viewController.view = sign_View;
+  
+  [myPopControl setContentViewController:viewController];
+  [myPopControl setPopoverContentSize:CGSizeMake(740, 200)];
+  [myPopControl presentPopoverFromBarButtonItem:self.viewSignature permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+  
+}
+
+// popover dismissing
+-(void)dismissPopoverView {
+  [myPopControl dismissPopoverAnimated:YES];
+}
+
+/*PopOver Ending*/
 
 - (void)viewDidUnload {
   //ticket properties release
@@ -209,10 +293,12 @@
 	self.warning1 = nil;
 	self.warning2 = nil;
 	self.weightMaster = nil;
-  
+  self.sig1View=nil;
+  self.sig2View=nil;
+  self.sig3View=nil;
+  self.sig4View=nil;
   self.goToMapButton = nil;
   self.signatureButton = nil;
-  self.signatureImageView = nil;
   self.managedObjectContext = nil;
   
   [self setDeliverButton:nil];
@@ -302,9 +388,13 @@
 	[ticket release];
   [goToMapButton release];
   [signatureButton release];
-  [signatureImageView release];
   [managedObjectContext release];
-  
+  [sig1View release];
+  [sig2View release];
+  [sig3View release];
+  [sig4View release];
+  [viewController release];
+
   [deliverButton release];
     [_sendAsEmail release];
   [super dealloc];
@@ -314,28 +404,6 @@
   [self.popControl dismissPopoverAnimated:YES];
 }
 
-
-- (void)getSignatureClick
-{
-  //Manually call T1Autograph instead of modal transition due to library errors
-  
-  self.autographVC = [[AutographViewController alloc]initWithViewWidth:SIGNATURE_WINDOW_WIDTH andViewHeight:SIGNATURE_WINDOW_HEIGHT];
-  self.autographVC.delegate = self;
-  [self.autographVC.view setBackgroundColor:[UIColor whiteColor]];
-  
-  [self.popControl setContentViewController:self.autographVC];
-  [self.popControl setPopoverContentSize:CGSizeMake(SIGNATURE_WINDOW_WIDTH, SIGNATURE_WINDOW_HEIGHT)];
-  [self.popControl presentPopoverFromBarButtonItem:self.signatureButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-  
-  [self.autographVC setMyAutograph:[T1Autograph autographWithView:self.autographVC.blank delegate:self]];
-  
-  [self.autographVC.myAutograph setLicenseCode:@"3b5cb10eed222d83ee8c1ce5b2cd2c5f830e447f"];
-  [self.autographVC.myAutograph setShowDate:YES];
-  [self.autographVC.myAutograph setStrokeColor:[UIColor blackColor]];
-  [self.autographVC.myAutograph setShowGuideline:YES];
-  
-  [autographVC release];
-}
 
 -(void)didClickDone {
   [self.popControl dismissPopoverAnimated:YES];
@@ -367,35 +435,16 @@
 	NSLog(@"User pressed the done button without signing");
 }
 
+// Qfor - Babu - July 13, 2013
+// Signature Field Based on Button index value to stored on Core Data
+
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
--(void)autographDidCompleteWithImageData:(NSData *)imageData hashValue:(NSString *)hashValue {
-	//store signature file here//
-  
-  NSLog(@"Autograph modal signature completed.");
-	if ([hashValue length]>0) {
-		NSLog(@"Hash value: %@",hashValue);
-    
-	}
-  
-  //Add signature image to display
-  if(signatureImageView != nil) {
-    [signatureImageView removeFromSuperview];
-  }
-  
-  UIImage *signatureImage = [UIImage imageWithData:imageData];
-  signatureImageView = [[UIImageView alloc] initWithImage:signatureImage];
-  
-  CGRect signatureImageViewFrame = CGRectMake(150, (903-signatureImage.size.height), signatureImage.size.width, signatureImage.size.height);
-  [signatureImageView setFrame:signatureImageViewFrame];
-  
-  [[self view] addSubview:signatureImageView];
-  
-  //store image data to coredata//
+-(void) autograph:( T1Autograph * )autograph didCompleteWithSignature:( T1Signature * )signature{
   
   //get most recent ticket and assign lat long//
   NSManagedObjectContext *context = [APP_DELEGATE managedObjectContext];
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-  NSEntityDescription *entity = [NSEntityDescription entityForName:@"DBLTicket" 
+  NSEntityDescription *entity = [NSEntityDescription entityForName:@"DBLTicket"
                                             inManagedObjectContext:context];
   [fetchRequest setEntity:entity];
   [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"ticketNumber == %@", [ticket ticketNumber]]];
@@ -403,9 +452,30 @@
   [fetchRequest setFetchLimit:1];
   
   NSError *error = nil;
+  
   NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
   for (DBLTicket *fetchedTicket in fetchedObjects) {
-    fetchedTicket.signature = imageData;
+    switch (self.sigindex) {
+      case 1:
+        fetchedTicket.signature1 = signature.imageData;
+        break;
+        
+      case 2:
+        fetchedTicket.signature2 = signature.imageData;
+        break;
+        
+      case 3:
+        fetchedTicket.signature3 = signature.imageData;
+        break;
+        
+      case 4:
+        fetchedTicket.signature4 = signature.imageData;
+        break;
+        
+      default:
+        break;
+    }
+    
     if (![context save:&error]) {
       // Handle the error.
       NSLog(@"Failed To Save New Ticket: %@", [error localizedDescription]);
@@ -415,20 +485,21 @@
   //try and send data to corporate//
   NSString *latitude = [[NSString alloc] initWithFormat:@"%g", [DBLCLController sharedCLController].locationManager.location.coordinate.latitude];
   NSString *longitude = [[NSString alloc] initWithFormat:@"%g", [DBLCLController sharedCLController].locationManager.location.coordinate.longitude];
-
+  
   
   //////////////////////////////////////////
   //STORE SIGNATURE LOCALLY//
   DBLSignatureLocal *insertedSignature = [NSEntityDescription
-                                     insertNewObjectForEntityForName:@"DBLSignatureLocal" 
-                                     inManagedObjectContext:context];
+                                          insertNewObjectForEntityForName:@"DBLSignatureLocal"
+                                          inManagedObjectContext:context];
   
+  [insertedSignature setIndex:[NSNumber numberWithInt:self.sigindex]];//signature index
   [insertedSignature setLatitude:latitude];
   [insertedSignature setLongitude:longitude];
   [insertedSignature setTicketNumber:[ticket ticketNumber]];
   [insertedSignature setTruckNumber:[ticket truckNumber]];
   [insertedSignature setLocationCode:[NSNumber numberWithInt:[[ticket locationCode] intValue]]];
-  [insertedSignature setSignatureData:imageData];
+  [insertedSignature setSignatureData:signature.imageData];
   [insertedSignature setTimestamp:[NSDate date]];
   [insertedSignature setSentToCorporate:[NSNumber numberWithBool:NO]];
   
@@ -446,9 +517,36 @@
   [longitude release];
   [fetchRequest release];
   
-  [[APP_DELEGATE signatureManager] sendSignatureToCorporate:insertedSignature];  
+  [[APP_DELEGATE signatureManager] sendSignatureToCorporate:insertedSignature];
+  
+  
+  // To add images to Signature Imageview
+  switch (self.sigindex) {
+    case 1:
+      [sig1View setImage:[UIImage imageWithData:signature.imageData]];
+      [sig1View setHidden:NO];
+      break;
+      
+    case 2:
+      [sig2View setImage:[UIImage imageWithData:signature.imageData]];
+      [sig2View setHidden:NO];
+      break;
+      
+    case 3:
+      [sig3View setImage:[UIImage imageWithData:signature.imageData]];
+      [sig3View setHidden:NO];
+      break;
+      
+    case 4:
+      [sig4View setImage:[UIImage imageWithData:signature.imageData]];
+      [sig4View setHidden:NO];
+      break;
+      
+    default:
+      break;
+  }
 }
-
+/*               Signature Database Ending           */
 
 - (void)goToMapButtonClick
 {
@@ -554,26 +652,77 @@
 	self.warning2.text = [[self ticket] warning2];
 	self.weightMaster.text = [[self ticket] weighmaster];
   
-  //SHOW SIGNATURE//
-  //////////////////
-  //Add signature image to display
-  if(signatureImageView != nil) {
-    [signatureImageView removeFromSuperview];
+  if (![self.ticket.notes isEqualToString:@""]) {
+    [self.txtNotes setText:self.ticket.notes];
+    [vcResponse setTextField:self.ticket.notes];
   }
   
-  NSData *signatureData = [[self ticket] signature];
-  UIImage *signatureImage = [UIImage imageWithData:signatureData];
-  signatureImageView = [[UIImageView alloc] initWithImage:signatureImage];
+  // Signature Data to add to Signature View
+  NSData *signatureData1 = self.ticket.signature1;
   
-  CGRect signatureImageViewFrame = CGRectMake(150, (903-signatureImage.size.height), signatureImage.size.width, signatureImage.size.height);
-  [signatureImageView setFrame:signatureImageViewFrame];
+  if (signatureData1 != nil) {
+    [sig1View setImage:[UIImage imageWithData:signatureData1]];
+    [sig1View setHidden:NO];
+    [sig1View setNeedsDisplay];
+  }
+  else {
+    [sig1View setHidden:YES];
+  }
   
-  [[self view] addSubview:signatureImageView];
+  NSData *signatureData2 = self.ticket.signature2;
+  if (signatureData2 != nil) {
+    [sig2View setImage:[UIImage imageWithData:signatureData2]];
+    [sig2View setHidden:NO];
+    [sig2View setNeedsDisplay];
+  }
+  else {
+    [sig2View setHidden:YES];
+  }
+  
+  NSData *signatureData3 = self.ticket.signature3;
+  if (signatureData3 != nil) {
+    [sig3View setImage:[UIImage imageWithData:signatureData3]];
+    [sig3View setHidden:NO];
+    [sig3View setNeedsDisplay];
+  }
+  else {
+    [sig3View setHidden:YES];
+  }
+  
+  NSData *signatureData4 = self.ticket.signature4;
+  if (signatureData4 != nil) {
+    [sig4View setImage:[UIImage imageWithData:signatureData4]];
+    [sig4View setHidden:NO];
+    [sig4View setNeedsDisplay];
+  }
+  else {
+    [sig4View setHidden:YES];
+  }
   
 	
 	[formatter release];
 	[self hideLoading];
 }
+
+//Enter Notes Button Click Qfor - Babu - July 13, 2013
+
+-(IBAction)enterNotesClick:(id)sender
+{
+  [myPopControl setContentViewController:vcResponse];
+  [myPopControl setPopoverContentSize:DEFAULT_POPOVER_SIZE];
+  [myPopControl presentPopoverFromRect:self.enterNotesBtn.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+}
+
+// Enter Notes Button Action Back - Qfor - Babu - July 13, 2013
+-(void)popoverActionBack {
+  [myPopControl dismissPopoverAnimated:NO];
+  [myPopControl setContentViewController:vcResponse];
+  [myPopControl setPopoverContentSize:DEFAULT_POPOVER_SIZE];
+  [myPopControl setContentViewController:vcResponse];
+  [myPopControl presentPopoverFromRect:self.enterNotesBtn.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+}
+
+
 
 
 #pragma mark -
@@ -651,5 +800,149 @@
     [popControl dismissPopoverAnimated:YES];
   }
 }
+
+
+/*Qfor - Babu - July 12, 2013 */
+/*Signature Alert View*/
+- (void)getSignatureClick
+{
+  //Manually call T1Autograph instead of modal transition due to library errors
+  
+  UIAlertView *newAlert = [[UIAlertView alloc]initWithTitle:@"" message:@"Which signature is this?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"One", @"Two", @"Three", @"Four", nil];
+  [newAlert setTag:ALERT_TICKET_SIGNATURE_SELECTION];
+  [newAlert show];
+  
+  
+}
+
+#pragma mark - alert view delegate
+
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+  if (alertView.tag == ALERT_TICKET_SIGNATURE_SELECTION) {
+    if (buttonIndex != 0) {
+      self.sigindex = buttonIndex;
+      
+      self.autographVC = [[AutographViewController alloc]initWithViewWidth:SIGNATURE_WINDOW_WIDTH andViewHeight:SIGNATURE_WINDOW_HEIGHT];
+      self.autographVC.delegate = self;
+      [self.autographVC.view setBackgroundColor:[UIColor whiteColor]];
+      
+      [self.popControl setContentViewController:self.autographVC];
+      [self.popControl setPopoverContentSize:CGSizeMake(SIGNATURE_WINDOW_WIDTH, SIGNATURE_WINDOW_HEIGHT)];
+      [self.popControl presentPopoverFromBarButtonItem:self.signatureButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+      
+      [self.autographVC setMyAutograph:[T1Autograph autographWithView:self.autographVC.blank delegate:self]];
+      [self.autographVC.myAutograph setLicenseCode:@"3b5cb10eed222d83ee8c1ce5b2cd2c5f830e447f"];
+      [self.autographVC.myAutograph setShowDate:YES];
+      [self.autographVC.myAutograph setStrokeColor:[UIColor blackColor]];
+      [self.autographVC.myAutograph setShowGuideline:YES];
+    }
+  }
+}
+
+#pragma mark - popover delegate
+
+-(void)popoverControllerDidDismissPopover:(WEPopoverController *)popoverController {
+  
+}
+
+-(BOOL)popoverControllerShouldDismissPopover:(WEPopoverController *)popoverController {
+  return YES;
+}
+
+
+#pragma mark - coredata helpers
+// Ticket Notes details fetch from Core data table
+-(NSArray*)getNotesFromCoredata {
+  NSError *error;
+  NSManagedObjectContext *context = [APP_DELEGATE managedObjectContext];
+  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
+  NSEntityDescription *entity = [NSEntityDescription entityForName:@"LQTicketNote" inManagedObjectContext:context];
+  [fetchRequest setEntity:entity];
+  
+  NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+  
+  NSSortDescriptor *sortDescriptor;
+  sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"index"
+                                               ascending:YES];
+  NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+  NSArray *sortedArray;
+  sortedArray = [fetchedObjects sortedArrayUsingDescriptors:sortDescriptors];
+  
+  return sortedArray;
+}
+
+#pragma mark Response Delegate Class
+
+#pragma mark - response delegate functions
+// Enter Notes View send button response View Webservice
+-(void)didClickDoneNotes {
+  if ([vcResponse statusFieldIsEmpty]) {
+    UIAlertView *newAlert = [[UIAlertView alloc]initWithTitle:@"No comments entered"
+                                                      message:@"Please select a response and/or enter a comment."
+                                                     delegate:self
+                                            cancelButtonTitle:@"OK"
+                                            otherButtonTitles:nil];
+    [newAlert show];
+  }
+  
+  else {
+    [myPopControl dismissPopoverAnimated:YES];
+    
+    NSString *notes = [vcResponse getFullResponse];
+    [self.txtNotes setText:notes];
+    [self.ticket setNotes:notes];
+    
+    CLLocation *locationToSend = [[DBLCLController sharedCLController] lastLocation];
+    // Enter Notes Webservice Request
+    SDZTickets *service = [[SDZTickets alloc]init];
+    [service SubmitTicketNotes:self action:@selector(ticketNotesHandler:) deviceid:[APP_DELEGATE deviceId] udid:[APP_DELEGATE UDID] note:[vcResponse getFullResponse] ticketnumber:[[self ticket].ticketNumber intValue] locationcode:[NSString stringWithFormat:@"%d", [[self ticket].locationCode intValue]] timestamp:[NSDate date] latitude:[NSString stringWithFormat:@"%f",locationToSend.coordinate.latitude] longitude:[NSString stringWithFormat:@"%f",locationToSend.coordinate.longitude]];
+    
+  }
+}
+//Ticket Notes Webservices Response
+
+-(void)ticketNotesHandler:(id)value {
+  if ([value isKindOfClass:[NSError class]] || [value isKindOfClass:[SoapFault class]]) {
+    NSLog(@"notes failure: %@", (NSString*) value);
+  }
+  
+  else {
+    UIAlertView *newAlert = [[UIAlertView alloc]initWithTitle:@"Notes saved!" message:@"" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [newAlert show];
+  }
+}
+
+//Enter Notes filed select Response View to show
+
+-(void)didClickSelect {
+  [myPopControl dismissPopoverAnimated:NO];
+  if ([vcResponse getArrayLength] < 10) {
+    int height = ([vcResponse getArrayLength]+1) * 44;
+    [myPopControl setPopoverContentSize:CGSizeMake(350, height)];
+    [vcResponseList setContentSizeForViewInPopover:CGSizeMake(350, height)];
+  }
+  else {
+    [myPopControl setPopoverContentSize:CGSizeMake(350, vcResponseList.tableView.frame.size.height)];
+  }
+  [myPopControl setContentViewController:vcResponseList];
+  [myPopControl presentPopoverFromRect:self.enterNotesBtn.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+}
+//Select the value from PopUp View
+
+-(void)didSelectRow {
+  LQTicketNote *temp = [notesArray objectAtIndex:
+                        vcResponseList.tableView.indexPathForSelectedRow.row];
+  [vcResponse setSelectedType:temp.label];
+  
+  [self popoverActionBack];
+}
+//Cancel Button Action
+-(void)didSelectCancel {
+  [self popoverActionBack];
+}
+
+/*       Qfor POPUP View Ending         */
+
+
 
 @end

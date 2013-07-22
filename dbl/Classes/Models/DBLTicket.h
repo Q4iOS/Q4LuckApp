@@ -51,7 +51,7 @@
 @property (nonatomic, retain) NSNumber *shortTonsQtyDelivered;
 @property (nonatomic, retain) NSNumber *shortTonsQtyDeliveryToday;
 @property (nonatomic, retain) NSNumber *shortTonsQtyOrdered;
-@property (nonatomic, retain) NSData *signature;
+//@property (nonatomic, retain) NSData *signature;
 @property (nonatomic, retain) NSString *specialInstructions;
 @property (nonatomic, retain) NSNumber *stonePrice;
 @property (nonatomic, retain) NSNumber *stoneRate;
@@ -64,5 +64,12 @@
 @property (nonatomic, retain) NSString *warning1;
 @property (nonatomic, retain) NSString *warning2;
 @property (nonatomic, retain) NSString *weighmaster;
+
+@property (nonatomic, retain) NSString * notes;
+@property (nonatomic, retain) NSData * signature1;
+@property (nonatomic, retain) NSData * signature2;
+@property (nonatomic, retain) NSData * signature3;
+@property (nonatomic, retain) NSData * signature4;
+
 
 @end

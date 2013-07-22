@@ -86,7 +86,7 @@
 
 	// Returns NSString*
 	/*  */
-	[service StoreSignature:self action:@selector(StoreSignatureHandler:) signature: @"" ticketnumber: @"" locationcode: @"" deviceid: @"" udid: @"" timestamp: [NSDate date] latitude: @"" longitude: @""];
+	[service StoreSignature:self action:@selector(StoreSignatureHandler:) signature: @"" signaturenumber:0 ticketnumber: @"" locationcode: @"" deviceid: @"" udid: @"" timestamp: [NSDate date] latitude: @"" longitude: @""];
 
 	// Returns NSString*
 	/*  */

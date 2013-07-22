@@ -51,7 +51,7 @@
 @dynamic shortTonsQtyDelivered;
 @dynamic shortTonsQtyDeliveryToday;
 @dynamic shortTonsQtyOrdered;
-@dynamic signature;
+//@dynamic signature;
 @dynamic specialInstructions;
 @dynamic stonePrice;
 @dynamic stoneRate;
@@ -64,5 +64,12 @@
 @dynamic warning1;
 @dynamic warning2;
 @dynamic weighmaster;
+
+@dynamic notes;
+
+@dynamic signature1;
+@dynamic signature2;
+@dynamic signature3;
+@dynamic signature4;
 
 @end

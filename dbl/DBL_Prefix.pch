@@ -18,7 +18,8 @@
 //DEVELOPMENT WEB SERVICES URL
 #define TICKETS_SERVICE_DOMAIN @"delivery.luckstone.com"
 //#define TICKETS_SERVICE_URL @"http://ipad.luckstone.com:5885/20/Tickets.svc"
-#define TICKETS_SERVICE_URL @"http://ipad.luckstone.com:5885/20Test/Tickets.svc"
+//#define TICKETS_SERVICE_URL @"http://ipad.luckstone.com:5885/20Test/Tickets.svc"
+#define TICKETS_SERVICE_URL @"http://ipad.luckstone.com:5885/30/Tickets.svc"
 
 
 //DATE FORMAT TO USE WHEN DECODING AND ENCODING DATES FROM AND FOR THE WEB SERVICE

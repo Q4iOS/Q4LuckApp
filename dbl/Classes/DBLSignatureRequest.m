@@ -50,16 +50,19 @@
   NSLog(@"Sending Signature:\n%@", [signature description]);
   
   SDZTickets* service = [[SDZTickets alloc] init];
+  [service setLogging:YES];
   [service StoreSignature:self
                    action:@selector(StoreSignatureHandler:)
                 signature:[[signature signatureData] base64Encoding]
+          signaturenumber:[signature.index intValue]  // to add signature index Number
              ticketnumber:[signature ticketNumber]
              locationcode:[NSString stringWithFormat:@"%d",[[signature locationCode] intValue]]
-                 deviceid:[APP_DELEGATE deviceId] 
+                 deviceid:[APP_DELEGATE deviceId]
                      udid:[APP_DELEGATE UDID]
                 timestamp:[signature timestamp]
                  latitude:[signature latitude]
                 longitude:[signature longitude]];
+  
   [service release];
   
 }

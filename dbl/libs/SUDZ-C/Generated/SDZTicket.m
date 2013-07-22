@@ -77,6 +77,12 @@
 	@synthesize WaterIndicator = _WaterIndicator;
 	@synthesize Weighmaster = _Weighmaster;
 	@synthesize _TicketDateTime = __TicketDateTime;
+  @synthesize Notes = _Notes;
+
+  @synthesize Signature1 = _Signature1;
+  @synthesize Signature2 = _Signature2;
+  @synthesize Signature3 = _Signature3;
+  @synthesize Signature4 = _Signature4;
 
 	- (id) init
 	{
@@ -147,6 +153,11 @@
 			self.WaterIndicator = nil;
 			self.Weighmaster = nil;
 			self._TicketDateTime = nil;
+      self.Signature1 = nil;
+      self.Signature2 = nil;
+			self.Signature3 = nil;
+			self.Signature4 = nil;
+      self.Notes = nil;
 
 		}
 		return self;
@@ -231,6 +242,14 @@
 			self.WaterIndicator = [Soap getNodeValue: node withName: @"WaterIndicator"];
 			self.Weighmaster = [Soap getNodeValue: node withName: @"Weighmaster"];
 			self._TicketDateTime = [Soap dateFromString: [Soap getNodeValue: node withName: @"_TicketDateTime"]];
+      /*Qfor Babu -july 15 2013*/
+      self.Notes = [Soap getNodeValue: node withName: @"Notes"];// Notes field
+      //signature data field to string
+			self.Signature1 = [Soap dataFromString: [Soap getNodeValue: node withName: @"Signature1"]];
+      self.Signature2 = [Soap dataFromString: [Soap getNodeValue: node withName: @"Signature2"]];
+			self.Signature3 = [Soap dataFromString: [Soap getNodeValue: node withName: @"Signature3"]];
+			self.Signature4 = [Soap dataFromString: [Soap getNodeValue: node withName: @"Signature4"]];
+
 		}
 		return self;
 	}
@@ -282,6 +301,8 @@
 		if (self.MetricTonsQtyDelivered != nil) [s appendFormat: @"<MetricTonsQtyDelivered>%@</MetricTonsQtyDelivered>", [NSString stringWithFormat: @"%@", self.MetricTonsQtyDelivered]];
 		if (self.MetricTonsQtyDeliveryToday != nil) [s appendFormat: @"<MetricTonsQtyDeliveryToday>%@</MetricTonsQtyDeliveryToday>", [NSString stringWithFormat: @"%@", self.MetricTonsQtyDeliveryToday]];
 		if (self.MetricTonsQtyOrdered != nil) [s appendFormat: @"<MetricTonsQtyOrdered>%@</MetricTonsQtyOrdered>", [NSString stringWithFormat: @"%@", self.MetricTonsQtyOrdered]];
+    //Notes field value passing
+    if (self.Notes != nil) [s appendFormat: @"<Notes>%@</Notes>", [[self.Notes stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"] stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"]];
 		if (self.NetTons != nil) [s appendFormat: @"<NetTons>%@</NetTons>", [NSString stringWithFormat: @"%@", self.NetTons]];
 		if (self.NetTonsMetric != nil) [s appendFormat: @"<NetTonsMetric>%@</NetTonsMetric>", [NSString stringWithFormat: @"%@", self.NetTonsMetric]];
 		if (self.NetWeight != nil) [s appendFormat: @"<NetWeight>%@</NetWeight>", [NSString stringWithFormat: @"%@", self.NetWeight]];
@@ -302,6 +323,11 @@
 		if (self.PurchaseOrder != nil) [s appendFormat: @"<PurchaseOrder>%@</PurchaseOrder>", [[self.PurchaseOrder stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"] stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"]];
 		if (self.SalesTax != nil) [s appendFormat: @"<SalesTax>%@</SalesTax>", [NSString stringWithFormat: @"%@", self.SalesTax]];
 		if (self.ScaleUsed != nil) [s appendFormat: @"<ScaleUsed>%@</ScaleUsed>", [[self.ScaleUsed stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"] stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"]];
+    // signture field value passing
+		if (self.Signature1 != nil) [s appendFormat: @"<Signature1>%@</Signature1>", [Soap getBase64String: self.Signature1]];
+    if (self.Signature2 != nil) [s appendFormat: @"<Signature2>%@</Signature2>", [Soap getBase64String: self.Signature2]];
+		if (self.Signature3 != nil) [s appendFormat: @"<Signature3>%@</Signature3>", [Soap getBase64String: self.Signature3]];
+		if (self.Signature4 != nil) [s appendFormat: @"<Signature4>%@</Signature4>", [Soap getBase64String: self.Signature4]];
 		if (self.ShortTonsLoadsToday != nil) [s appendFormat: @"<ShortTonsLoadsToday>%@</ShortTonsLoadsToday>", [NSString stringWithFormat: @"%@", self.ShortTonsLoadsToday]];
 		if (self.ShortTonsQtyDelivered != nil) [s appendFormat: @"<ShortTonsQtyDelivered>%@</ShortTonsQtyDelivered>", [NSString stringWithFormat: @"%@", self.ShortTonsQtyDelivered]];
 		if (self.ShortTonsQtyDeliveryToday != nil) [s appendFormat: @"<ShortTonsQtyDeliveryToday>%@</ShortTonsQtyDeliveryToday>", [NSString stringWithFormat: @"%@", self.ShortTonsQtyDeliveryToday]];
@@ -414,6 +440,11 @@
 		self.WaterIndicator = nil;
 		self.Weighmaster = nil;
 		self._TicketDateTime = nil;
+    self.Signature1 = nil;
+    self.Signature2 = nil;
+    self.Signature3 = nil;
+    self.Signature4 = nil;
+    self.Notes = nil;
 		[super dealloc];
 	}
 

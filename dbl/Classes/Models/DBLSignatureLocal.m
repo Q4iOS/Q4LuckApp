@@ -18,6 +18,8 @@
 @dynamic ticketNumber;
 @dynamic timestamp;
 @dynamic truckNumber;
+@dynamic id;
+@dynamic index;
 
 - (NSString*)description
 {

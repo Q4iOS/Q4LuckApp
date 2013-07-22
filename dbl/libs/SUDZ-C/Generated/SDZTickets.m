@@ -24,7 +24,7 @@
 	{
 		if(self = [super init])
 		{
-			self.serviceUrl = @"http://ipad.luckstone.com:5885/20Test/Tickets.svc";
+			self.serviceUrl =@"http://ipad.luckstone.com:5885/30/Tickets.svc";
 			self.namespace = @"http://tempuri.org/";
 			self.headers = nil;
 			self.logging = NO;
@@ -104,31 +104,34 @@
 		return _request;
 	}
 
-	// Returns NSString*
-	/*  */
-	- (SoapRequest*) StoreSignature: (id <SoapDelegate>) handler signature: (NSString*) signature ticketnumber: (NSString*) ticketnumber locationcode: (NSString*) locationcode deviceid: (NSString*) deviceid udid: (NSString*) udid timestamp: (NSDate*) timestamp latitude: (NSString*) latitude longitude: (NSString*) longitude
-	{
-		return [self StoreSignature: handler action: nil signature: signature ticketnumber: ticketnumber locationcode: locationcode deviceid: deviceid udid: udid timestamp: timestamp latitude: latitude longitude: longitude];
-	}
 
-	- (SoapRequest*) StoreSignature: (id) _target action: (SEL) _action signature: (NSString*) signature ticketnumber: (NSString*) ticketnumber locationcode: (NSString*) locationcode deviceid: (NSString*) deviceid udid: (NSString*) udid timestamp: (NSDate*) timestamp latitude: (NSString*) latitude longitude: (NSString*) longitude
-		{
-		NSMutableArray* _params = [NSMutableArray array];
-		
-		[_params addObject: [[[SoapParameter alloc] initWithValue: signature forName: @"signature"] autorelease]];
-		[_params addObject: [[[SoapParameter alloc] initWithValue: ticketnumber forName: @"ticketnumber"] autorelease]];
-		[_params addObject: [[[SoapParameter alloc] initWithValue: locationcode forName: @"locationcode"] autorelease]];
-		[_params addObject: [[[SoapParameter alloc] initWithValue: deviceid forName: @"deviceid"] autorelease]];
-		[_params addObject: [[[SoapParameter alloc] initWithValue: udid forName: @"udid"] autorelease]];
-		[_params addObject: [[[SoapParameter alloc] initWithValue: timestamp forName: @"timestamp"] autorelease]];
-		[_params addObject: [[[SoapParameter alloc] initWithValue: latitude forName: @"latitude"] autorelease]];
-		[_params addObject: [[[SoapParameter alloc] initWithValue: longitude forName: @"longitude"] autorelease]];
-		NSString* _envelope = [Soap createEnvelope: @"StoreSignature" forNamespace: self.namespace withParameters: _params withHeaders: self.headers];
-		SoapRequest* _request = [SoapRequest create: _target action: _action service: self soapAction: @"http://tempuri.org/ITickets/StoreSignature" postData: _envelope deserializeTo: @"NSString"];
-		[_request send];
-		return _request;
-	}
+/* Qfor - Babu - July 16, 2013*/
+// Store Signature Soap Webservice Declaration Method
 
+/* Returns NSString*.  */
+- (SoapRequest*) StoreSignature: (id <SoapDelegate>) handler signature: (NSString*) signature  signaturenumber:(int) signaturenumber    ticketnumber: (NSString*) ticketnumber locationcode: (NSString*) locationcode deviceid: (NSString*) deviceid udid: (NSString*) udid timestamp: (NSDate*) timestamp latitude: (NSString*) latitude longitude: (NSString*) longitude
+{
+  return [self StoreSignature: handler action: nil signature: signature  signaturenumber : signaturenumber  ticketnumber: ticketnumber locationcode: locationcode deviceid: deviceid udid: udid timestamp: timestamp latitude: latitude longitude: longitude];
+}
+
+- (SoapRequest*) StoreSignature: (id) _target action: (SEL) _action signature: (NSString*) signature signaturenumber:(int) signaturenumber ticketnumber: (NSString*) ticketnumber locationcode: (NSString*) locationcode deviceid: (NSString*) deviceid udid: (NSString*) udid timestamp: (NSDate*) timestamp latitude: (NSString*) latitude longitude: (NSString*) longitude
+{
+  NSMutableArray* _params = [NSMutableArray array];
+  
+  [_params addObject: [[[SoapParameter alloc] initWithValue: signature forName: @"signature"] autorelease]];
+  [_params addObject: [[[SoapParameter alloc] initWithValue: [NSNumber numberWithInt: signaturenumber]  forName: @"signaturenumber"] autorelease]];
+  [_params addObject: [[[SoapParameter alloc] initWithValue: ticketnumber forName: @"ticketnumber"] autorelease]];
+  [_params addObject: [[[SoapParameter alloc] initWithValue: locationcode forName: @"locationcode"] autorelease]];
+  [_params addObject: [[[SoapParameter alloc] initWithValue: deviceid forName: @"deviceid"] autorelease]];
+  [_params addObject: [[[SoapParameter alloc] initWithValue: udid forName: @"udid"] autorelease]];
+  [_params addObject: [[[SoapParameter alloc] initWithValue: timestamp forName: @"timestamp"] autorelease]];
+  [_params addObject: [[[SoapParameter alloc] initWithValue: latitude forName: @"latitude"] autorelease]];
+  [_params addObject: [[[SoapParameter alloc] initWithValue: longitude forName: @"longitude"] autorelease]];
+  NSString* _envelope = [Soap createEnvelope: @"StoreSignature" forNamespace: self.namespace withParameters: _params withHeaders: self.headers];
+  SoapRequest* _request = [SoapRequest create: _target action: _action service: self soapAction: @"http://tempuri.org/ITickets/StoreSignature" postData: _envelope deserializeTo: @"NSString"];
+  [_request send];
+  return _request;
+}
 	// Returns NSMutableArray*
 	/*  */
 	- (SoapRequest*) GetSchedule: (id <SoapDelegate>) handler deviceid: (NSString*) deviceid udid: (NSString*) udid
@@ -477,5 +480,53 @@
 	}
 
 
+
+/*Qfor - Babu - July 15, 2013*/
+
+/*Get Ticket Notes*/
+- (SoapRequest*) GetTicketNotes: (id <SoapDelegate>) handler deviceid: (NSString*) deviceid udid: (NSString*) udid{
+  return [self GetTicketNotes: handler action: nil deviceid: deviceid udid: udid ];
+}
+
+- (SoapRequest*) GetTicketNotes: (id) _target action: (SEL) _action deviceid: (NSString*) deviceid udid: (NSString*) udid
+{
+  NSMutableArray* _params = [NSMutableArray array];
+  
+  [_params addObject: [[SoapParameter alloc] initWithValue: deviceid forName: @"deviceid"]];
+  [_params addObject: [[SoapParameter alloc] initWithValue: udid forName: @"udid"]];
+  
+  NSString* _envelope = [Soap createEnvelope: @"GetTicketNotes" forNamespace: self.namespace withParameters: _params withHeaders: self.headers];
+  SoapRequest* _request = [SoapRequest create: _target action: _action service: self soapAction: @"http://tempuri.org/ITickets/GetTicketNotes" postData: _envelope deserializeTo: @"NSString"];
+  [_request send];
+  return _request;
+}
+
+
+//submit notes
+
+- (SoapRequest*) SubmitTicketNotes: (id <SoapDelegate>) handler deviceid: (NSString*) deviceid udid: (NSString*) udid note: (NSString*) note ticketnumber: (int) ticketnumber locationcode: (NSString*) locationcode timestamp: (NSDate*) timestamp latitude: (NSString*) latitude longitude: (NSString*) longitude
+{
+  return [self SubmitTicketNotes: handler action: nil deviceid: deviceid udid: udid  note: note ticketnumber: ticketnumber  locationcode:locationcode timestamp: timestamp latitude: latitude longitude: longitude];
+}
+
+- (SoapRequest*) SubmitTicketNotes: (id) _target action: (SEL) _action deviceid: (NSString*) deviceid udid: (NSString*) udid  note: (NSString*) note ticketnumber: (int) ticketnumber locationcode: (NSString*) locationcode timestamp: (NSDate*) timestamp latitude: (NSString*) latitude longitude: (NSString*) longitude
+{
+  NSMutableArray* _params = [NSMutableArray array];
+  
+  [_params addObject: [[SoapParameter alloc] initWithValue: deviceid forName: @"deviceid"]];
+  [_params addObject: [[SoapParameter alloc] initWithValue: udid forName: @"udid"]];
+  [_params addObject: [[SoapParameter alloc] initWithValue: note forName: @"note"]];
+  [_params addObject: [[SoapParameter alloc] initWithValue: [NSNumber numberWithInt: ticketnumber] forName: @"ticketnumber"]];
+  [_params addObject: [[[SoapParameter alloc] initWithValue: locationcode forName: @"locationcode"] autorelease]];
+  [_params addObject: [[SoapParameter alloc] initWithValue: timestamp forName: @"timestamp"]];
+  [_params addObject: [[SoapParameter alloc] initWithValue: latitude forName: @"latitude"]];
+  [_params addObject: [[SoapParameter alloc] initWithValue: longitude forName: @"longitude"]];
+  NSString* _envelope = [Soap createEnvelope: @"SubmitTicketNotes" forNamespace: self.namespace withParameters: _params withHeaders: self.headers];
+  SoapRequest* _request = [SoapRequest create: _target action: _action service: self soapAction: @"http://tempuri.org/ITickets/SubmitTicketNotes" postData: _envelope deserializeTo: @"NSString"];
+  [_request send];
+  return _request;
+}
+/*    QFOR       ENDING  */
+
+
 @end
-	

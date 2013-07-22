@@ -16,6 +16,9 @@
 #import <QuartzCore/QuartzCore.h>
 #import "DBLEmailPopoverViewController.h"
 #import "DBLDeliveredViewController.h"
+#import "WEPopoverController.h"
+#import "LQResponseViewController.h"
+#import "LQTicketNote.h"
 
 
 #define SIGNATURE_WINDOW_WIDTH 700
@@ -51,9 +54,21 @@
 
 @class DBLTicket;
 
-@interface DBLTicketViewController : UIViewController <T1AutographDelegate, UIAlertViewDelegate, EmailPopoverDelegate, DeliverDelegate, MyAutographDelegate> {
+@interface DBLTicketViewController : UIViewController <T1AutographDelegate, UIAlertViewDelegate, EmailPopoverDelegate, DeliverDelegate, MyAutographDelegate,ResponseDelegate,ResponseListDelegate> {
   T1Autograph *autographModal;
   UIPopoverController *popControl;
+  WEPopoverController *myPopControl;
+  
+  UIView      *sign_View;
+  UIImageView *sig1View;
+  UIImageView *sig2View;
+  UIImageView *sig3View;
+  UIImageView *sig4View;
+  
+  LQResponseViewController *vcResponse;
+  LQResponseListViewController *vcResponseList;
+  NSArray *notesArray;
+  UIViewController *viewController;
 }
 
 @property (nonatomic, retain) DBLTicket *ticket;
@@ -111,16 +126,24 @@
 @property (nonatomic, retain) IBOutlet UILabel *warning1;
 @property (nonatomic, retain) IBOutlet UILabel *warning2;
 @property (nonatomic, retain) IBOutlet UILabel *weightMaster;
-
+@property (nonatomic,retain) IBOutlet  UIButton *enterNotesBtn;
+@property (retain, nonatomic) IBOutlet UITextView *txtNotes;
+@property (nonatomic, assign) int sigindex;
 
 #pragma mark -
 #pragma mark User Interaction Defined
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *spinner;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *signatureButton;
-@property (nonatomic, retain) IBOutlet UIImageView *signatureImageView;
+//@property (nonatomic, retain) IBOutlet UIImageView *signatureImageView;
+@property (nonatomic, retain) UIImageView *sig1View;
+@property (nonatomic, retain) UIImageView *sig2View;
+@property (nonatomic, retain) UIImageView *sig3View;
+@property (nonatomic, retain) UIImageView *sig4View;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *goToMapButton;
 @property (retain, nonatomic) IBOutlet UIBarButtonItem *deliverButton;
 @property (retain, nonatomic) IBOutlet UIBarButtonItem *sendAsEmail;
+@property (nonatomic, retain) IBOutlet UIBarButtonItem *viewSignature;
+
 
 @property (nonatomic, retain) DBLDeliveredViewController *deliverPopover;
 @property (nonatomic, retain) DBLEmailPopoverViewController* emailPopover;
@@ -131,5 +154,8 @@
 - (IBAction)getSignatureClick;
 - (IBAction)deliverButtonClick:(id)sender;
 - (IBAction)sendAsEmailClick:(id)sender;
+- (IBAction)viewAsSignatureClick:(id)sender;
+
+-(IBAction)enterNotesClick:(id)sender;
 
 @end

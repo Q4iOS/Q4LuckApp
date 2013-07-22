@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1536</int>
-		<string key="IBDocument.SystemVersion">11G63b</string>
+		<string key="IBDocument.SystemVersion">12E55</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2844</string>
-		<string key="IBDocument.AppKitVersion">1138.51</string>
-		<string key="IBDocument.HIToolboxVersion">569.00</string>
+		<string key="IBDocument.AppKitVersion">1187.39</string>
+		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">1930</string>
@@ -15,6 +15,7 @@
 			<string>IBProxyObject</string>
 			<string>IBUIActivityIndicatorView</string>
 			<string>IBUIBarButtonItem</string>
+			<string>IBUIButton</string>
 			<string>IBUIImageView</string>
 			<string>IBUILabel</string>
 			<string>IBUITextView</string>
@@ -4487,13 +4488,13 @@ dGlvbnMuA</string>
 							<int key="IBUIAutocapitalizationType">2</int>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						</object>
-						<object class="IBUIFontDescription" key="IBUIFontDescription">
+						<object class="IBUIFontDescription" key="IBUIFontDescription" id="370790912">
 							<string key="name">Helvetica-Bold</string>
 							<string key="family">Helvetica</string>
 							<int key="traits">2</int>
 							<double key="pointSize">15</double>
 						</object>
-						<object class="NSFont" key="IBUIFont">
+						<object class="NSFont" key="IBUIFont" id="986554175">
 							<string key="NSName">Helvetica-Bold</string>
 							<double key="NSSize">15</double>
 							<int key="NSfFlags">16</int>
@@ -4939,10 +4940,10 @@ dGlvbnMuA</string>
 					<object class="IBUITextView" id="957350431">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{189, 348}, {559, 62}}</string>
+						<string key="NSFrame">{{189, 348}, {237, 62}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="647865959"/>
+						<reference key="NSNextKeyView" ref="972032031"/>
 						<reference key="IBUIBackgroundColor" ref="361439191"/>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">7</int>
@@ -4961,7 +4962,7 @@ dGlvbnMuA</string>
 							<int key="traits">0</int>
 							<double key="pointSize">14</double>
 						</object>
-						<object class="NSFont" key="IBUIFont">
+						<object class="NSFont" key="IBUIFont" id="419743476">
 							<string key="NSName">Helvetica</string>
 							<double key="NSSize">14</double>
 							<int key="NSfFlags">16</int>
@@ -6384,6 +6385,81 @@ dGlvbnMuA</string>
 						<reference key="IBUIFontDescription" ref="347274914"/>
 						<reference key="IBUIFont" ref="734507488"/>
 					</object>
+					<object class="IBUILabel" id="972032031">
+						<reference key="NSNextResponder" ref="766721923"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{430, 363}, {59, 31}}</string>
+						<reference key="NSSuperview" ref="766721923"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="958174852"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<bool key="IBUIOpaque">NO</bool>
+						<bool key="IBUIClipsSubviews">YES</bool>
+						<int key="IBUIContentMode">7</int>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+						<string key="IBUIText">Notes:</string>
+						<reference key="IBUITextColor" ref="852494296"/>
+						<nil key="IBUIHighlightedColor"/>
+						<int key="IBUIBaselineAdjustment">0</int>
+						<reference key="IBUIFontDescription" ref="347274914"/>
+						<reference key="IBUIFont" ref="734507488"/>
+						<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
+					</object>
+					<object class="IBUITextView" id="958174852">
+						<reference key="NSNextResponder" ref="766721923"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{486, 348}, {160, 62}}</string>
+						<reference key="NSSuperview" ref="766721923"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="6307533"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<object class="NSColor" key="IBUIBackgroundColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MSAxIDEAA</bytes>
+						</object>
+						<bool key="IBUIClipsSubviews">YES</bool>
+						<bool key="IBUIMultipleTouchEnabled">YES</bool>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+						<bool key="IBUIShowsHorizontalScrollIndicator">NO</bool>
+						<bool key="IBUIEditable">NO</bool>
+						<string key="IBUIText"/>
+						<object class="IBUITextInputTraits" key="IBUITextInputTraits">
+							<int key="IBUIAutocapitalizationType">2</int>
+							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						</object>
+						<object class="IBUIFontDescription" key="IBUIFontDescription">
+							<int key="type">1</int>
+							<double key="pointSize">14</double>
+						</object>
+						<reference key="IBUIFont" ref="419743476"/>
+					</object>
+					<object class="IBUIButton" id="6307533">
+						<reference key="NSNextResponder" ref="766721923"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{654, 348}, {94, 63}}</string>
+						<reference key="NSSuperview" ref="766721923"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="647865959"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<bool key="IBUIOpaque">NO</bool>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+						<int key="IBUIContentHorizontalAlignment">0</int>
+						<int key="IBUIContentVerticalAlignment">0</int>
+						<int key="IBUIButtonType">1</int>
+						<string key="IBUINormalTitle">Enter Notes</string>
+						<reference key="IBUIHighlightedTitleColor" ref="361439191"/>
+						<object class="NSColor" key="IBUINormalTitleColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+						</object>
+						<object class="NSColor" key="IBUINormalTitleShadowColor">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MC41AA</bytes>
+						</object>
+						<reference key="IBUIFontDescription" ref="370790912"/>
+						<reference key="IBUIFont" ref="986554175"/>
+					</object>
 				</object>
 				<string key="NSFrame">{{0, 64}, {768, 911}}</string>
 				<reference key="NSSuperview"/>
@@ -6407,6 +6483,11 @@ dGlvbnMuA</string>
 			</object>
 			<object class="IBUIBarButtonItem" id="332235412">
 				<string key="IBUITitle">E-mail</string>
+				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+				<int key="IBUIStyle">1</int>
+			</object>
+			<object class="IBUIBarButtonItem" id="376420150">
+				<string key="IBUITitle">View Signature</string>
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 				<int key="IBUIStyle">1</int>
 			</object>
@@ -6815,6 +6896,30 @@ dGlvbnMuA</string>
 					<int key="connectionID">210</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">viewSignature</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="376420150"/>
+					</object>
+					<int key="connectionID">219</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">txtNotes</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="958174852"/>
+					</object>
+					<int key="connectionID">222</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">enterNotesBtn</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="6307533"/>
+					</object>
+					<int key="connectionID">224</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">goToMapButtonClick</string>
 						<reference key="source" ref="468519675"/>
@@ -6845,6 +6950,31 @@ dGlvbnMuA</string>
 						<reference key="destination" ref="841351856"/>
 					</object>
 					<int key="connectionID">211</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="958174852"/>
+						<reference key="destination" ref="841351856"/>
+					</object>
+					<int key="connectionID">221</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">enterNotesClick:</string>
+						<reference key="source" ref="6307533"/>
+						<reference key="destination" ref="841351856"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">223</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">viewAsSignatureClick:</string>
+						<reference key="source" ref="376420150"/>
+						<reference key="destination" ref="841351856"/>
+					</object>
+					<int key="connectionID">220</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -6960,6 +7090,9 @@ dGlvbnMuA</string>
 							<reference ref="568912387"/>
 							<reference ref="896976313"/>
 							<reference ref="1000696542"/>
+							<reference ref="958174852"/>
+							<reference ref="972032031"/>
+							<reference ref="6307533"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -7505,6 +7638,26 @@ dGlvbnMuA</string>
 						<reference key="object" ref="332235412"/>
 						<reference key="parent" ref="0"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">212</int>
+						<reference key="object" ref="972032031"/>
+						<reference key="parent" ref="766721923"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">213</int>
+						<reference key="object" ref="958174852"/>
+						<reference key="parent" ref="766721923"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">214</int>
+						<reference key="object" ref="6307533"/>
+						<reference key="parent" ref="766721923"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">217</int>
+						<reference key="object" ref="376420150"/>
+						<reference key="parent" ref="0"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -7562,6 +7715,10 @@ dGlvbnMuA</string>
 					<string>205.IBPluginDependency</string>
 					<string>209.IBPluginDependency</string>
 					<string>21.IBPluginDependency</string>
+					<string>212.IBPluginDependency</string>
+					<string>213.IBPluginDependency</string>
+					<string>214.IBPluginDependency</string>
+					<string>217.IBPluginDependency</string>
 					<string>25.IBPluginDependency</string>
 					<string>27.IBPluginDependency</string>
 					<string>28.IBPluginDependency</string>
@@ -7730,6 +7887,10 @@ dGlvbnMuA</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -7744,7 +7905,7 @@ dGlvbnMuA</string>
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">211</int>
+			<int key="maxID">224</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -7757,12 +7918,16 @@ dGlvbnMuA</string>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>deliverButtonClick:</string>
+							<string>enterNotesClick:</string>
 							<string>getSignatureClick</string>
 							<string>goToMapButtonClick</string>
 							<string>sendAsEmailClick:</string>
+							<string>viewAsSignatureClick:</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -7774,14 +7939,20 @@ dGlvbnMuA</string>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>deliverButtonClick:</string>
+							<string>enterNotesClick:</string>
 							<string>getSignatureClick</string>
 							<string>goToMapButtonClick</string>
 							<string>sendAsEmailClick:</string>
+							<string>viewAsSignatureClick:</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
 								<string key="name">deliverButtonClick:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">enterNotesClick:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -7796,6 +7967,10 @@ dGlvbnMuA</string>
 								<string key="name">sendAsEmailClick:</string>
 								<string key="candidateClassName">id</string>
 							</object>
+							<object class="IBActionInfo">
+								<string key="name">viewAsSignatureClick:</string>
+								<string key="candidateClassName">id</string>
+							</object>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
@@ -7806,6 +7981,7 @@ dGlvbnMuA</string>
 							<string>customerAddress</string>
 							<string>deliverButton</string>
 							<string>deliveryInstructions</string>
+							<string>enterNotesBtn</string>
 							<string>fuelSurcharge</string>
 							<string>goToMapButton</string>
 							<string>grossWt</string>
@@ -7840,7 +8016,6 @@ dGlvbnMuA</string>
 							<string>shortTonsQtyDeliveryToday</string>
 							<string>shortTonsQtyOrdered</string>
 							<string>signatureButton</string>
-							<string>signatureImageView</string>
 							<string>specialInstructions</string>
 							<string>spinner</string>
 							<string>stonePrice</string>
@@ -7851,6 +8026,8 @@ dGlvbnMuA</string>
 							<string>ticketTime</string>
 							<string>total</string>
 							<string>truckNumber</string>
+							<string>txtNotes</string>
+							<string>viewSignature</string>
 							<string>warning1</string>
 							<string>warning2</string>
 							<string>weightMaster</string>
@@ -7861,6 +8038,7 @@ dGlvbnMuA</string>
 							<string>UITextView</string>
 							<string>UIBarButtonItem</string>
 							<string>UITextView</string>
+							<string>UIButton</string>
 							<string>UILabel</string>
 							<string>UIBarButtonItem</string>
 							<string>UILabel</string>
@@ -7895,7 +8073,6 @@ dGlvbnMuA</string>
 							<string>UILabel</string>
 							<string>UILabel</string>
 							<string>UIBarButtonItem</string>
-							<string>UIImageView</string>
 							<string>UITextView</string>
 							<string>UIActivityIndicatorView</string>
 							<string>UILabel</string>
@@ -7906,6 +8083,8 @@ dGlvbnMuA</string>
 							<string>UILabel</string>
 							<string>UILabel</string>
 							<string>UILabel</string>
+							<string>UITextView</string>
+							<string>UIBarButtonItem</string>
 							<string>UILabel</string>
 							<string>UILabel</string>
 							<string>UILabel</string>
@@ -7919,6 +8098,7 @@ dGlvbnMuA</string>
 							<string>customerAddress</string>
 							<string>deliverButton</string>
 							<string>deliveryInstructions</string>
+							<string>enterNotesBtn</string>
 							<string>fuelSurcharge</string>
 							<string>goToMapButton</string>
 							<string>grossWt</string>
@@ -7953,7 +8133,6 @@ dGlvbnMuA</string>
 							<string>shortTonsQtyDeliveryToday</string>
 							<string>shortTonsQtyOrdered</string>
 							<string>signatureButton</string>
-							<string>signatureImageView</string>
 							<string>specialInstructions</string>
 							<string>spinner</string>
 							<string>stonePrice</string>
@@ -7964,6 +8143,8 @@ dGlvbnMuA</string>
 							<string>ticketTime</string>
 							<string>total</string>
 							<string>truckNumber</string>
+							<string>txtNotes</string>
+							<string>viewSignature</string>
 							<string>warning1</string>
 							<string>warning2</string>
 							<string>weightMaster</string>
@@ -7985,6 +8166,10 @@ dGlvbnMuA</string>
 							<object class="IBToOneOutletInfo">
 								<string key="name">deliveryInstructions</string>
 								<string key="candidateClassName">UITextView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">enterNotesBtn</string>
+								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">fuelSurcharge</string>
@@ -8123,10 +8308,6 @@ dGlvbnMuA</string>
 								<string key="candidateClassName">UIBarButtonItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">signatureImageView</string>
-								<string key="candidateClassName">UIImageView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
 								<string key="name">specialInstructions</string>
 								<string key="candidateClassName">UITextView</string>
 							</object>
@@ -8165,6 +8346,14 @@ dGlvbnMuA</string>
 							<object class="IBToOneOutletInfo">
 								<string key="name">truckNumber</string>
 								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">txtNotes</string>
+								<string key="candidateClassName">UITextView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">viewSignature</string>
+								<string key="candidateClassName">UIBarButtonItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">warning1</string>

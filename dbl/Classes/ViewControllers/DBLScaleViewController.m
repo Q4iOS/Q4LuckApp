@@ -428,14 +428,50 @@
   event.warning1 = result.Warning1;
   event.warning2 = result.Warning2;
   event.weighmaster = result.Weighmaster;
+  /*Qfor - BABU - JULY 18,2013 Notes and signature field value assigning*/
+  event.notes=result.Notes;
   
-  if(result.Signature) {
+  if(result.Signature1) {
     //result.Signature is data of a base64 encoded string. (Convert it to a String the put it back into data)
-    NSString *signatureResult = [[NSString alloc] initWithData:result.Signature
+    NSString *signatureResult = [[NSString alloc] initWithData:result.Signature1
                                                       encoding:NSUTF8StringEncoding];
     
     NSData *signatureData = [[NSData alloc] initWithBase64EncodedString:signatureResult];
-    event.signature = signatureData;
+    event.signature1 = signatureData;
+    [signatureData release];
+    [signatureResult release];
+  }
+  //added for signature data - Qfor - gowri - July 18, 2013
+  
+  if(result.Signature2) {
+    //result.Signature is data of a base64 encoded string. (Convert it to a String the put it back into data)
+    NSString *signatureResult = [[NSString alloc] initWithData:result.Signature2
+                                                      encoding:NSUTF8StringEncoding];
+    
+    NSData *signatureData = [[NSData alloc] initWithBase64EncodedString:signatureResult];
+    event.signature2 = signatureData;
+    [signatureData release];
+    [signatureResult release];
+  }
+  
+  if(result.Signature3) {
+    //result.Signature is data of a base64 encoded string. (Convert it to a String the put it back into data)
+    NSString *signatureResult = [[NSString alloc] initWithData:result.Signature3
+                                                      encoding:NSUTF8StringEncoding];
+    
+    NSData *signatureData = [[NSData alloc] initWithBase64EncodedString:signatureResult];
+    event.signature3 = signatureData;
+    [signatureData release];
+    [signatureResult release];
+  }
+  
+  if(result.Signature4) {
+    //result.Signature is data of a base64 encoded string. (Convert it to a String the put it back into data)
+    NSString *signatureResult = [[NSString alloc] initWithData:result.Signature4
+                                                      encoding:NSUTF8StringEncoding];
+    
+    NSData *signatureData = [[NSData alloc] initWithBase64EncodedString:signatureResult];
+    event.signature4 = signatureData;
     [signatureData release];
     [signatureResult release];
   }

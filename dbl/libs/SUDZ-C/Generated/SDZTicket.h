@@ -80,6 +80,14 @@
 	NSString* _WaterIndicator;
 	NSString* _Weighmaster;
 	NSDate* __TicketDateTime;
+  /*Qfor - Babu - July 15 ,2013 */
+  // notes and signature declaration
+  NSString* _Notes;
+  NSData* _Signature1;
+  NSData* _Signature2;
+	NSData* _Signature3;
+	NSData* _Signature4;
+
 	
 }
 		
@@ -114,6 +122,15 @@
 	@property (retain, nonatomic) NSDecimalNumber* NetTons;
 	@property (retain, nonatomic) NSDecimalNumber* NetTonsMetric;
 	@property (retain, nonatomic) NSDecimalNumber* NetWeight;
+/*Qfor - Babu - July 15 ,2013 */
+// notes and signature declaration
+
+ @property (retain, nonatomic) NSString* Notes;
+ @property (retain, nonatomic) NSData* Signature1;
+ @property (retain, nonatomic) NSData* Signature2;
+ @property (retain, nonatomic) NSData* Signature3;
+ @property (retain, nonatomic) NSData* Signature4;
+
 	@property (retain, nonatomic) NSString* OrderID;
 	@property (retain, nonatomic) NSString* OrderPriceIndicator;
 	@property (retain, nonatomic) NSString* OrderQtyIndicator;

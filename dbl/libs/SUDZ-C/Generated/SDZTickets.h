@@ -35,10 +35,7 @@
 	- (SoapRequest*) StoreLatLong: (id <SoapDelegate>) handler locations: (NSString*) locations;
 	- (SoapRequest*) StoreLatLong: (id) target action: (SEL) action locations: (NSString*) locations;
 
-	// Returns NSString*
-	/*  */
-	- (SoapRequest*) StoreSignature: (id <SoapDelegate>) handler signature: (NSString*) signature ticketnumber: (NSString*) ticketnumber locationcode: (NSString*) locationcode deviceid: (NSString*) deviceid udid: (NSString*) udid timestamp: (NSDate*) timestamp latitude: (NSString*) latitude longitude: (NSString*) longitude;
-	- (SoapRequest*) StoreSignature: (id) target action: (SEL) action signature: (NSString*) signature ticketnumber: (NSString*) ticketnumber locationcode: (NSString*) locationcode deviceid: (NSString*) deviceid udid: (NSString*) udid timestamp: (NSDate*) timestamp latitude: (NSString*) latitude longitude: (NSString*) longitude;
+	
 
 	// Returns NSMutableArray*
 	/*  */
@@ -119,8 +116,25 @@
 	/*  */
 	- (SoapRequest*) TicketAssignment: (id <SoapDelegate>) handler deviceid: (NSString*) deviceid udid: (NSString*) udid timestamp: (NSDate*) timestamp latitude: (NSString*) latitude longitude: (NSString*) longitude locationcode: (int) locationcode productid: (NSString*) productid orderid: (NSString*) orderid customername: (NSString*) customername amount: (NSDecimalNumber*) amount type: (NSString*) type;
 	- (SoapRequest*) TicketAssignment: (id) target action: (SEL) action deviceid: (NSString*) deviceid udid: (NSString*) udid timestamp: (NSDate*) timestamp latitude: (NSString*) latitude longitude: (NSString*) longitude locationcode: (int) locationcode productid: (NSString*) productid orderid: (NSString*) orderid customername: (NSString*) customername amount: (NSDecimalNumber*) amount type: (NSString*) type;
+/*Qfor - Babu - July 15, 2013*/
+/*Get Ticket Notes*/
 
-		
+- (SoapRequest*) GetTicketNotes: (id <SoapDelegate>) handler deviceid: (NSString*) deviceid udid: (NSString*) udid;
+- (SoapRequest*) GetTicketNotes: (id) _target action: (SEL) _action deviceid: (NSString*) deviceid udid: (NSString*) udid;
+
+/*Submit Ticket Notes*/
+
+- (SoapRequest*) SubmitTicketNotes: (id <SoapDelegate>) handler signature: (NSString*) signature  signaturenumber:(int) signaturenumber    ticketnumber: (NSString*) ticketnumber locationcode: (NSString*) locationcode deviceid: (NSString*) deviceid udid: (NSString*) udid timestamp: (NSDate*) timestamp latitude: (NSString*) latitude longitude: (NSString*) longitude;
+- (SoapRequest*) SubmitTicketNotes: (id) _target action: (SEL) _action deviceid: (NSString*) deviceid udid: (NSString*) udid  note: (NSString*) note ticketnumber: (int) ticketnumber locationcode: (NSString*) locationcode timestamp: (NSDate*) timestamp latitude: (NSString*) latitude longitude: (NSString*) longitude;
+
+
+
+/*Store Signature  */
+- (SoapRequest*) StoreSignature: (id <SoapDelegate>) handler signature: (NSString*) signature  signaturenumber:(int) signaturenumber    ticketnumber: (NSString*) ticketnumber locationcode: (NSString*) locationcode deviceid: (NSString*) deviceid udid: (NSString*) udid timestamp: (NSDate*) timestamp latitude: (NSString*) latitude longitude: (NSString*) longitude;
+- (SoapRequest*) StoreSignature: (id) _target action: (SEL) _action signature: (NSString*) signature signaturenumber:(int) signaturenumber ticketnumber: (NSString*) ticketnumber locationcode: (NSString*) locationcode deviceid: (NSString*) deviceid udid: (NSString*) udid timestamp: (NSDate*) timestamp latitude: (NSString*) latitude longitude: (NSString*) longitude;
+
+/*Webservice declaration Ending*/
+
 	+ (SDZTickets*) service;
 	+ (SDZTickets*) serviceWithUsername: (NSString*) username andPassword: (NSString*) password;
 @end

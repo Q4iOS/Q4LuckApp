@@ -124,6 +124,8 @@
       [self getRepliesFromServer];
       [self getStatusesFromServer];
       [self getSpeedLimitFromServer];
+      [self getNotesFromServer];
+
       [[NSUserDefaults standardUserDefaults] setBool:YES forKey:DEFAULTS_hasLaunchedOnce];
       [[NSUserDefaults standardUserDefaults] synchronize];
       [self goToMain];
@@ -208,7 +210,8 @@
     [self getStatusesFromServer];
     [self getRepliesFromServer];
     [self getSpeedLimitFromServer];
-    
+    [self getNotesFromServer];
+
     
     //Initialize some more userdefaults values
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:DEFAULTS_switchStatus];
@@ -676,8 +679,9 @@
 - (NSString *)UDID
 {
   
-  return [[UIDevice currentDevice] uniqueIdentifier];
+  //return [[UIDevice currentDevice] uniqueIdentifier];
   //return @"7EB2BC01-DAB0-5873-8ED0-5D819FE754E3";
+  return @"f620011fdbec9299d2c06c77f4bffca6280e1779";//PraviniPad
 }
 
 -(NSNumber *)speedLimit {
@@ -732,6 +736,42 @@
   [self getStatusesFromServer];
   [self getSpeedLimitFromServer];
   
+}
+
+
+/*Qfor - Babu - July 15, 2013*/
+// Get Notes Details from Webservice
+// Request
+-(void)getNotesFromServer {
+  SDZTickets *service = [[SDZTickets alloc]init];
+  service.logging = YES;
+  [service GetTicketNotes:self action:@selector(getNotesHandler:) deviceid:[APP_DELEGATE deviceId] udid:[APP_DELEGATE UDID]];
+}
+// Response
+-(void)getNotesHandler: (id)value {
+  if ([value isKindOfClass:[NSError class]] || [value isKindOfClass:[SoapFault class]]) {
+    NSLog(@"get notes failure: %@", value);
+    return;
+  }
+  else {
+    NSString *result = (NSString *) value;
+    NSArray *parsedResults = [[NSArray alloc]initWithArray:[result componentsSeparatedByString:@","]];
+    NSError *error;
+    NSManagedObjectContext *context = [self managedObjectContext];
+    
+    //keep an index value just to retain ordering from the server
+    int index = 0;
+    for (NSString *newStatus in parsedResults) {
+      DBLActivity *newActivity = [NSEntityDescription insertNewObjectForEntityForName:@"LQTicketNote" inManagedObjectContext:context];
+      [newActivity setValue:[NSString stringWithString:newStatus] forKey:@"label"];
+      [newActivity setValue:[NSNumber numberWithInt:index] forKey:@"index"];
+      index++;
+    }
+    
+    if (![context save:&error]) {
+      NSLog(@"Failed To Save Status Locally: %@", [error localizedDescription]);
+    }
+  }
 }
 
 @end
